@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './index.css'; // Ensure Tailwind is imported here
-import LoginPage from './components/LoginPage'; // LoginPage component
+import './index.css'; 
+import StudentLoginPage from './components/StudentLoginPage';
+import ProfessorLoginPage from './components/ProfessorLoginPage';  
+import StudentDashboard from './components/StudentDashboard';
+import ProfessorDashboard from './components/ProfessorDashboard';
 
 function App() {
   return (
@@ -11,22 +14,37 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
-              <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-                <h1 className="text-3xl font-semibold mb-4">Dobrodošli u Sustav Evidencije Prisutnosti</h1>
-                <p className="text-lg mb-6">Odaberite ulogu za prijavu:</p>
-                <div className="space-y-4">
+            <div
+              className="flex items-center justify-center min-h-screen bg-gray-600 relative"
+              style={{
+                backgroundImage: 'url("https://egradnja.hr/sites/default/files/2024/06/17/branka%20juras%20fesb8.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            >
+              {/* Overlay for dimming */}
+              <div className="absolute inset-0 bg-black opacity-30"></div>
+              {/* Content Container */}
+              <div className="relative bg-white p-16 rounded-lg shadow-2xl text-center max-w-lg w-full border-l-slate-950">
+                <h1 className="text-5xl font-bold mb-6 text-blue-900 tracking-wider">
+                  Attendify
+                </h1>
+                <p className="text-lg mb-12 text-gray-600">
+                  FESB-ov sustav za praćenje prisutnosti nastave. Odaberite ulogu za prijavu:
+                </p>
+                <div className="space-y-6">
                   <button
-                    className="w-full py-2 bg-green-500 text-white rounded-md text-lg hover:bg-green-600"
-                    onClick={() => window.location.href = '/login/student'}
+                    className="w-full py-4 bg-blue-400 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition-colors"
+                    onClick={() => (window.location.href = '/login/student')}
                   >
-                    Student
+                    Prijava za Studente
                   </button>
                   <button
-                    className="w-full py-2 bg-blue-500 text-white rounded-md text-lg hover:bg-blue-600"
-                    onClick={() => window.location.href = '/login/professor'}
+                    className="w-full py-4 bg-blue-800 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition-colors"
+                    onClick={() => (window.location.href = '/login/professor')}
                   >
-                    Profesor
+                    Prijava za Profesore
                   </button>
                 </div>
               </div>
@@ -34,7 +52,10 @@ function App() {
           }
         />
         {/* Login Page */}
-        <Route path="/login/:role" element={<LoginPage />} />
+        <Route path="/login/student" element={<StudentLoginPage />} />
+        <Route path="/login/professor" element={<ProfessorLoginPage />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/professor-dashboard" element={<ProfessorDashboard />} />
       </Routes>
     </Router>
   );
