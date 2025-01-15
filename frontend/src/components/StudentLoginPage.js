@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import StudentDashboard from './StudentDashboard';
+import axios from 'axios';
 
 function StudentLoginPage() {
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // To show error messages
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // For now, let's log the credentials to the console (you would replace this with an API call)
-    console.log('Student ID:', studentId, 'Password:', password);
+  const handleLogin = async () => {
+    try {
+      // Send a POST request to the login API route
+      const response = await axios.post('http://localhost:5000/login', { email: studentId, password });
 
-    // Navigate to the student dashboard or main page after successful login
-    navigate('/student-dashboard'); // Adjust this based on your app's flow
+      // If login is successful, store token and navigate
+      localStorage.setItem('token', response.data.token); // Store the token in localStorage or sessionStorage
+      navigate('/student-dashboard');
+    } catch (error) {
+      // Handle error (invalid credentials)
+      console.error('Login error:', error);
+      if (error.response && error.response.data) {
+        setError(error.response.data.message || 'Pogrešan email ili lozinka');
+      } else {
+        setError('Pogrešan email ili lozinka');
+      }
+    }
   };
 
   return (
@@ -33,6 +45,7 @@ function StudentLoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>} {/* Display error */}
         <button
           className="w-full py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors"
           onClick={handleLogin}

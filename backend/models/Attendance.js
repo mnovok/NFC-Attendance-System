@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
-const attendanceSchema = new mongoose.Schema({
-    nfcTagId: { type: String, required: true },
-    lectureId: { type: String, required: true },
-    timestamp: { type: Date, default: Date.now },
+const AttendanceSchema = new mongoose.Schema({
+  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  date: { type: Date, required: true },
+  className: { type: String, required: true },
+  status: { type: String, enum: ['Prisutan', 'Neprisutan'], required: true },
 });
 
-module.exports = mongoose.model('Attendance', attendanceSchema);
+module.exports = mongoose.model('Attendance', AttendanceSchema);
