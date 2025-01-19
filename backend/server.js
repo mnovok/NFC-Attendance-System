@@ -1,25 +1,32 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 const cors = require('cors');
+
+const loginRoutes = require('./routes/loginRoutes');
+const { seedUsers } = require('./data/seeder');
+
 const bodyParser = require('body-parser');
-const loginRoute = require('./routes/login'); // Import the login route
+
+dotenv.config();
 
 const app = express();
-const port = 5000;
 
 app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(bodyParser.json()); // To parse JSON request bodies
 
-app.use('/login', loginRoute); // Register the login route
+connectDB().then(async () => {
+  await seedUsers();  
 
-mongoose.connect('mongodb://127.0.0.:27017/nfc_attendance', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  const PORT = process.env.PORT || 5000;;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+}).catch((error) => {
+  console.error(`Error while connecting to the database: ${error.message}`);
 });
 
-app.listen(5000, () => {
-    console.log("Server is running on http://localhost:5000");
-  });
+app.use('/api/user', loginRoutes);

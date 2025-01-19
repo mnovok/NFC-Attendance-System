@@ -11,7 +11,7 @@ function StudentLoginPage() {
   const handleLogin = async () => {
     try {
       // Send a POST request to the login API route
-      const response = await axios.post('http://localhost:5000/login', { email: studentId, password });
+      const response = await axios.post('http://localhost:5000/user/login', { email: studentId, password });
 
       // If login is successful, store token and navigate
       localStorage.setItem('token', response.data.token); // Store the token in localStorage or sessionStorage
