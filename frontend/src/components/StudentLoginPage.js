@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { loginUser } from '../service/userService';
 
 function StudentLoginPage() {
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // To show error messages
+  const [error, setError] = useState(''); 
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
     try {
-      // Send a POST request to the login API route
-      const response = await axios.post('http://localhost:5000/user/login', { email: studentId, password });
-
-      // If login is successful, store token and navigate
-      localStorage.setItem('token', response.data.token); // Store the token in localStorage or sessionStorage
+      const response = await loginUser(studentId, password );
+      localStorage.setItem('token', response.token); 
       navigate('/student-dashboard');
     } catch (error) {
-      // Handle error (invalid credentials)
       console.error('Login error:', error);
       if (error.response && error.response.data) {
         setError(error.response.data.message || 'Pogrešan email ili lozinka');
