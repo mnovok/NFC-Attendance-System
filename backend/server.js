@@ -30,3 +30,15 @@ connectDB().then(async () => {
 });
 
 app.use('/api/user', loginRoutes);
+
+// Ruta za NFC
+app.post('/nfc', (req, res) => {
+  const uid = req.body.uid; // Izvlaci UID iz requesta
+
+  if (uid) {
+    console.log(`Received NFC UID: ${uid}`); // Ispisi u terminalu UID
+    res.status(200).send({ message: 'UID received successfully' }); // Upsjesno primljen UID
+  } else {
+    res.status(400).send({ message: 'UID is missing' }); // Ako mu nema UID-a, vrati gresku
+  }
+});
