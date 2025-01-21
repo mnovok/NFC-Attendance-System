@@ -7,7 +7,7 @@ const attendances = [
     studentId: "CF4E81E", // Student's UID
     classId: "678fc73771e8cb87c6f0dd46", // Class's ObjectId
     status: "Prisutan",
-    otherId: "678fbd37572f40839a8d7077"
+    otherId: "678fbd37572f40839a8d7077" // Ovo je ID studenta u bazi User !
   },
   {
     studentId: "CF4E81E",
