@@ -4,7 +4,10 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 
 const loginRoutes = require('./routes/loginRoutes');
+const attendanceRoutes = require('./routes/attendance');
 const { seedUsers } = require('./data/seeder');
+const { seedClasses } = require('./data/seedClasses');
+const { seedAttendances } = require('./data/seedAttendance');
 
 const bodyParser = require('body-parser');
 
@@ -19,6 +22,8 @@ app.use(bodyParser.json()); // To parse JSON request bodies
 
 connectDB().then(async () => {
   await seedUsers();  
+  await seedClasses();  
+  await seedAttendances();  
 
   const PORT = process.env.PORT || 5000;;
   app.listen(PORT, () => {
@@ -30,6 +35,7 @@ connectDB().then(async () => {
 });
 
 app.use('/api/user', loginRoutes);
+app.use('/api/attendances', attendanceRoutes);
 
 // Ruta za NFC
 app.post('/nfc', (req, res) => {

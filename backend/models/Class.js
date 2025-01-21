@@ -1,9 +1,10 @@
+// models/Class.js
 const mongoose = require('mongoose');
 
 const classSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true, 
+    required: true,
   },
   type: {
     type: String,
@@ -12,25 +13,27 @@ const classSchema = new mongoose.Schema({
   },
   roomNumber: {
     type: String,
-    required: true, 
+    required: true,
   },
   date: {
     type: Date,
-    required: true, 
+    required: true,
   },
   startTime: {
     type: String,
-    required: true, 
+    required: true,
   },
   endTime: {
     type: String,
-    required: true, 
+    required: true,
   },
   professorId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
-    required: true, 
+    ref: 'User',
+    required: true,
   },
 });
 
-module.exports = mongoose.model('Class', classSchema);
+// Export the model
+const Class = mongoose.model('Class', classSchema);
+module.exports = { Class };  // Ensure correct export

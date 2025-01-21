@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 function ProfessorDashboard() {
   // Sample data for student classes (you will later fetch this from an API)
   const [attendanceData, setAttendanceData] = useState([]);
-  const [email, setEmail] = useState('drDolittle@bts.com'); // This should be passed via props or fetched from a context
+  const [email, setEmail] = useState('profesor Gotovac'); // This should be passed via props or fetched from a context
 
   useEffect(() => {
     // Here we simulate an API call for attendance data
