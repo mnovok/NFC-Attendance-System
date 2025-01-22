@@ -1,5 +1,5 @@
-// models/Class.js
 const mongoose = require('mongoose');
+const { User } = require('./User');
 
 const classSchema = new mongoose.Schema({
   name: {
@@ -34,6 +34,5 @@ const classSchema = new mongoose.Schema({
   },
 });
 
-// Export the model
 const Class = mongoose.model('Class', classSchema);
-module.exports = { Class };  // Ensure correct export
+module.exports = { Class };  

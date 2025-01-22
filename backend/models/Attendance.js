@@ -4,7 +4,7 @@ const { Class } = require('./Class');
 
 const attendanceSchema = new mongoose.Schema({
   studentId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
@@ -18,9 +18,8 @@ const attendanceSchema = new mongoose.Schema({
     enum: ['Prisutan', 'Neprisutan'],
     required: true,
   },
-  otherId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+  studentUID: {
+    type: String,
     required: true,
   },
 });

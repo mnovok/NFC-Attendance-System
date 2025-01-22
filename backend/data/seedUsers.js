@@ -37,13 +37,15 @@ const users = [
       "surname": "Gotovac",
       "password": "123",
       "role": "professor",
+      "uid": "CF4E845"
     },
     {
       "email": "vplest@fesb.hr",
       "name": "Vladimir",
       "surname": "Plestina",
       "password": "123",
-      "role": "professor"
+      "role": "professor",
+      "uid": "CF4E899"
     }
 ];
 

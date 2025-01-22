@@ -2,13 +2,12 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const mongoose = require('mongoose');  
 
 const loginRoutes = require('./routes/loginRoutes');
 const attendanceRoutes = require('./routes/attendance');
 const nfcRoutes = require('./routes/nfc');
-const { seedUsers } = require('./data/seeder');
-const { seedClasses } = require('./data/seedClasses');
-const { seedAttendances } = require('./data/seedAttendance');
+const { seedUsers, seedClasses, seedAttendances } = require('./data/seeder');
 const { Attendance } = require('./models/Attendance');
 const { User } = require('./models/User');
 
@@ -23,10 +22,29 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(bodyParser.json()); // To parse JSON request bodies
 
+const isCollectionEmpty = async (collectionName) => {
+  const count = await mongoose.connection.collection(collectionName).countDocuments();
+  return count === 0;
+};
+
 connectDB().then(async () => {
   await seedUsers();  
-  await seedClasses();  
-  await seedAttendances();  
+
+  const isClassesEmpty = await isCollectionEmpty('classes');
+  if (isClassesEmpty) {
+    console.log('Seeding classes...');
+    await seedClasses();
+  } else {
+    console.log('Classes collection is not empty, skipping seed.');
+  }
+
+  const isAttendancesEmpty = await isCollectionEmpty('attendances');
+  if (isAttendancesEmpty) {
+    console.log('Seeding attendances...');
+    await seedAttendances();
+  } else {
+    console.log('Attendances collection is not empty, skipping seed.');
+  }
 
   const PORT = process.env.PORT || 5000;;
   app.listen(PORT, () => {
