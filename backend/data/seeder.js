@@ -1,6 +1,6 @@
-const { User } = require('../models/User');
-const { Class } = require('../models/Class');
-const { Attendance } = require('../models/Attendance');
+const User = require('../models/User');
+const Class  = require('../models/Class');
+const Attendance = require('../models/Attendance');
 const users = require('./seedUsers');
 const attendances = require('./seedAttendance');
 const classes = require('./seedClasses');

@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { getAttendance } from '../service/attendanceService';
 
 function StudentDashboard() {
   const [attendanceData, setAttendanceData] = useState([]);
   const [email, setEmail] = useState('Jakov Bejo'); // This should be passed via props or fetched from a context
   const [loading, setLoading] = useState(true);
-  const studentId = 'CF4E81E'; // Use the actual studentId here
+  const studentUID = 'CF4E81E'; // Use the actual studentId here
 
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/attendances/${studentId}`);
-        const data = await response.json();
-        console.log('Fetched attendance data:', data); // Debug log
-
-        if (response.ok) {
-          setAttendanceData(data); // Set the data directly
-        } else {
-          console.error('Error fetching attendance data:', data);
-        }
+        const response = await getAttendance(studentUID);
+        setAttendanceData(response); 
       } catch (err) {
         console.error('Error fetching attendance data:', err);
       } finally {
@@ -26,7 +20,7 @@ function StudentDashboard() {
     };
 
     fetchAttendanceData();
-  }, [studentId]);
+  }, [studentUID]);
 
   const getCardColor = (type) => {
     switch (type) {
