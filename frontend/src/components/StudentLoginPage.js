@@ -12,7 +12,9 @@ function StudentLoginPage() {
     try {
       const response = await loginUser(studentId, password );
       localStorage.setItem('token', response.token); 
+      localStorage.setItem('user', JSON.stringify({ uid: response.uid, name: response.name, surname: response.surname }));
       navigate('/student-dashboard');
+      console.log('Login response:', response); 
     } catch (error) {
       console.error('Login error:', error);
       if (error.response && error.response.data) {
@@ -23,8 +25,15 @@ function StudentLoginPage() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleLogin(); 
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-blue-100">
       <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-md w-full">
         <h1 className="text-3xl font-bold mb-4 text-blue-900">Prijavite se kao student</h1>
         <input
@@ -33,6 +42,7 @@ function StudentLoginPage() {
           className="w-full p-3 mb-4 border border-gray-300 rounded"
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <input
           type="password"
@@ -40,6 +50,7 @@ function StudentLoginPage() {
           className="w-full p-3 mb-4 border border-gray-300 rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>} {/* Display error */}
         <button

@@ -3,9 +3,11 @@ import { getAttendance } from '../service/attendanceService';
 
 function StudentDashboard() {
   const [attendanceData, setAttendanceData] = useState([]);
-  const [email, setEmail] = useState('Jakov Bejo'); // This should be passed via props or fetched from a context
   const [loading, setLoading] = useState(true);
-  const studentUID = 'CF4E81E'; // Use the actual studentId here
+  // const studentUID = 'CF4E81E'; // Use the actual studentId here
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  const studentUID = user.uid;
 
   useEffect(() => {
     const fetchAttendanceData = async () => {
@@ -36,9 +38,9 @@ function StudentDashboard() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 p-8">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-blue-100 p-8">
       <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg text-center">
-        <h1 className="text-4xl font-bold mb-6 text-blue-900 tracking-wide">Dobrodošli, {email}</h1>
+        <h1 className="text-4xl font-bold mb-6 text-blue-900 tracking-wide">Evidencija za {user ? `${user.name} ${user.surname}` : 'studenta'}</h1>
 
         {/* Attendance Cards */}
         {loading ? (

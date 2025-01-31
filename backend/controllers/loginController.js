@@ -19,7 +19,10 @@ const loginUser =  async (req, res) => {
       if (user && (await user.matchPassword(password))) {
         res.json({
           _id: user._id,
+          uid: user.uid,
           email: user.email,
+          name: user.name,
+          surname: user.surname,
           token: generateToken(user._id),
         });
       } else {
