@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAttendance } from '../service/attendanceService';
+import NavBar from './NavBar';
 
 function StudentDashboard() {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -38,6 +39,8 @@ function StudentDashboard() {
   };
 
   return (
+    <>
+    <NavBar/>
     <div className="flex flex-col items-center justify-start min-h-screen bg-blue-100 p-8">
       <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg text-center">
         <h1 className="text-4xl font-bold mb-6 text-blue-900 tracking-wide">Evidencija za {user ? `${user.name} ${user.surname}` : 'studenta'}</h1>
@@ -74,6 +77,7 @@ function StudentDashboard() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

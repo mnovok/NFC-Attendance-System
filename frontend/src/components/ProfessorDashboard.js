@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getClasses } from '../service/classesService';
+import NavBar from './NavBar';
 
 function ProfessorDashboard() {
   const [classesData, setClassesData] = useState([]);
@@ -56,6 +57,8 @@ function ProfessorDashboard() {
   };
 
   return (
+    <>
+    <NavBar/>
     <div className="flex flex-col items-center justify-start min-h-screen bg-blue-100 p-8">
       <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-lg text-center">
         <h1 className="text-4xl font-bold mb-6 text-blue-900 tracking-wide">
@@ -95,6 +98,7 @@ function ProfessorDashboard() {
         )}
       </div>
     </div>
+    </>
   );
 }
 
