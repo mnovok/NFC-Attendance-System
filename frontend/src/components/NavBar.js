@@ -10,10 +10,10 @@ const NavBar = () => {
         navigate('/');
     };
     return (
-        <nav className="bg-white text-gray-800 p-4">
+        <nav className="bg-white text-blue-900 p-4">
             <div className="flex justify-between items-center">
-                <Link to="/" className="text-2xl font-bold hover:text-blue-600">
-                    FESB Attendance
+                <Link to="/" className="text-2xl font-bold uppercase hover:text-blue-600">
+                    Attendify
                 </Link>
                 <ul className="flex space-x-6">
                     <li>
@@ -21,7 +21,7 @@ const NavBar = () => {
                             onClick={handleLogout}
                             className="hover:text-blue-600 text-lg focus:outline-none"
                         >
-                            Log Out
+                            Odjavi se
                         </button>
                     </li>
                 </ul>

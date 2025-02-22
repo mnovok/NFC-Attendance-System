@@ -33,8 +33,15 @@ function StudentLoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-md w-full">
+    <div className="flex items-center justify-center min-h-screen bg-blue-100"
+    style={{
+      backgroundImage: 'url("https://egradnja.hr/sites/default/files/2024/06/17/branka%20juras%20fesb8.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
+    <div className="absolute inset-0 bg-black opacity-30"></div>
+    <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-md w-full relative z-10">
         <h1 className="text-3xl font-bold mb-4 text-blue-900">Prijavite se kao student</h1>
         <input
           type="text"
@@ -43,6 +50,7 @@ function StudentLoginPage() {
           value={studentId}
           onChange={(e) => setStudentId(e.target.value)}
           onKeyDown={handleKeyDown}
+          autoFocus
         />
         <input
           type="password"
