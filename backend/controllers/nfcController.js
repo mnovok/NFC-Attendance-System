@@ -12,6 +12,7 @@ const saveAttendance =  async (req, res) => {
     }
 
     try {
+        console.log(uid);
         const student = await User.findOne({ uid: uid });
 
         if (!student) {
