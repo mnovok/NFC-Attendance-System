@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const loginRoutes = require('./routes/loginRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const nfcRoutes = require('./routes/nfcRoutes');
+const classesRoutes = require('./routes/classesRoutes');
 
 const { seedUsers, seedClasses, seedAttendances } = require('./data/seeder');
 
@@ -57,6 +58,7 @@ connectDB().then(async () => {
 app.use('/api/user', loginRoutes);
 app.use('/api/attendances', attendanceRoutes);
 app.use('/api/nfc', nfcRoutes);
+app.use('/api/classes', classesRoutes);
 
 // Ruta za NFC
 // app.post('/nfc', (req, res) => {

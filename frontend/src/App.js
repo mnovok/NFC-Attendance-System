@@ -23,11 +23,9 @@ function App() {
                 backgroundRepeat: 'no-repeat',
               }}
             >
-              {/* Overlay for dimming */}
               <div className="absolute inset-0 bg-black opacity-30"></div>
-              {/* Content Container */}
               <div className="relative bg-white p-16 rounded-lg shadow-2xl text-center max-w-lg w-full border-l-slate-950">
-                <h1 className="text-5xl font-bold mb-6 text-blue-900 tracking-wider">
+                <h1 className="text-5xl font-bold mb-8 text-blue-900 tracking-wider uppercase">
                   Attendify
                 </h1>
                 <p className="text-lg mb-12 text-gray-600">
